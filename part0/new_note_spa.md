@@ -11,8 +11,5 @@ sequenceDiagram
         server->>browser : Status Code 201 Created {"message":"note created"}
         deactivate server
 
-        
-
-
 
 ```
