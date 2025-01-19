@@ -1,14 +1,18 @@
 
-const Persons=({personsFiltered})=>{
+const Persons=({personsFiltered,handleClick})=>{
+    
+   
     return( <>
             <ul>
       {
         personsFiltered.map((person)=>{
-          return <li key={person.id}>{person.name} {person.number} </li>
+          return <div key={person.id}>
+            <li >{person.name} {person.number} <button id={person.id} onClick={handleClick} >delete</button> </li>
+          </div>
         })
       }
       </ul>
-    </>
+    </> 
     )
 }
 
