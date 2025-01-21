@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+const api_key=import.meta.env.VITE_API_KEY
 
 const CountryDetails=({country})=>{
 
   const [weather,setWeather]=useState(null);
   useEffect(()=>{
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${country.name.common}&APPID=f365f366885c7a817c4b9babdde0c99f`).then((res)=>{
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${country.name.common}&APPID=${api_key}`).then((res)=>{
       // console.log(res.data)
           setWeather(res.data)
 
