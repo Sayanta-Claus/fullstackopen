@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const baseUrl='http://localhost:3001/persons';
+const baseUrl='/api/persons';
 
 const getNumbers=()=>{
     const req=axios.get(baseUrl);
@@ -10,7 +10,7 @@ const getNumbers=()=>{
 }
 
 const create=(newPerson)=>{
-    const req=axios.post('http://localhost:3001/persons',newPerson)
+    const req=axios.post(baseUrl,newPerson)
     return req.then((res)=>res.data)
 }
 

@@ -33,38 +33,38 @@ const App = () => {
     const newPerson={
       name:newName,
       number:newNumber,
-      id:`${persons.length+1}`
+      
     }
     let f=0;
-    for(let i=0;i<persons.length;i++){
-      if((persons[i].name)===(newPerson.name)){
-        if(window.confirm(`${newPerson.name} is already added to phonebook, replace the old number with a new one ?`)){
-            replace(persons[i].id,newPerson).then((data)=>{
-              setSucMessage(`Success!!! ${data.name} with ${data.number} modified`)
-              setTimeout(()=>{
-                setSucMessage(null)
-              },4000)
-              setPersons(persons.map((p)=>{
-                if(p.id===data.id){
-                  return data
-                }
-                else{
-                  return p
-                }
-              }))
-            }).catch((err)=>{
-              console.log(err);
-              setErrMessage(`Information about ${newPerson.name} already removed from server`);
-              setTimeout(()=>{
-                setErrMessage(null)
-              },5000)
+    // for(let i=0;i<persons.length;i++){
+    //   if((persons[i].name)===(newPerson.name)){
+    //     if(window.confirm(`${newPerson.name} is already added to phonebook, replace the old number with a new one ?`)){
+    //         replace(persons[i].id,newPerson).then((data)=>{
+    //           setSucMessage(`Success!!! ${data.name} with ${data.number} modified`)
+    //           setTimeout(()=>{
+    //             setSucMessage(null)
+    //           },4000)
+    //           setPersons(persons.map((p)=>{
+    //             if(p.id===data.id){
+    //               return data
+    //             }
+    //             else{
+    //               return p
+    //             }
+    //           }))
+    //         }).catch((err)=>{
+    //           console.log(err);
+    //           setErrMessage(`Information about ${newPerson.name} already removed from server`);
+    //           setTimeout(()=>{
+    //             setErrMessage(null)
+    //           },5000)
 
-            })
-        }
-        f=1;
-        break;
-      }
-    }
+    //         })
+    //     }
+    //     f=1;
+    //     break;
+    //   }
+    // }
 
     if(f==0){
       create(newPerson).then((data)=>{
@@ -88,21 +88,26 @@ const App = () => {
   const handleSearch=(e)=>{
     setSearchKey(e.target.value)
   }
-  const personsFiltered= searchKey===''? persons:persons.filter((person)=>person.name.toLowerCase().includes(searchKey.toLowerCase()))
+  
+
+
+
   const handleClick=(e)=>{
     const person=personsFiltered.filter((p)=>p.id===e.target.id)
     const obj=person[0];
     console.log(obj)
     if(window.confirm(`Delete ${obj.name} ?`)){
       del(e.target.id).then((data)=>{
-        setPersons(persons.filter((p)=>p.id !== data.id))
+        console.log("deleted user")
+        console.log(data)
+        setPersons(persons=>persons.filter((p)=>Number(p.id) !== Number(obj.id)))
       }).catch((err)=>{
         console.log(err)
       })
     }
     
   } 
-
+  const personsFiltered= searchKey===''? persons:persons.filter((person)=>person.name.toLowerCase().includes(searchKey.toLowerCase()))
 
 
   return (
