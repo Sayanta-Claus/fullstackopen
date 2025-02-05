@@ -36,35 +36,35 @@ const App = () => {
       
     }
     let f=0;
-    // for(let i=0;i<persons.length;i++){
-    //   if((persons[i].name)===(newPerson.name)){
-    //     if(window.confirm(`${newPerson.name} is already added to phonebook, replace the old number with a new one ?`)){
-    //         replace(persons[i].id,newPerson).then((data)=>{
-    //           setSucMessage(`Success!!! ${data.name} with ${data.number} modified`)
-    //           setTimeout(()=>{
-    //             setSucMessage(null)
-    //           },4000)
-    //           setPersons(persons.map((p)=>{
-    //             if(p.id===data.id){
-    //               return data
-    //             }
-    //             else{
-    //               return p
-    //             }
-    //           }))
-    //         }).catch((err)=>{
-    //           console.log(err);
-    //           setErrMessage(`Information about ${newPerson.name} already removed from server`);
-    //           setTimeout(()=>{
-    //             setErrMessage(null)
-    //           },5000)
+    for(let i=0;i<persons.length;i++){
+      if((persons[i].name)===(newPerson.name)){
+        if(window.confirm(`${newPerson.name} is already added to phonebook, replace the old number with a new one ?`)){
+            replace(persons[i].id,newPerson).then((data)=>{
+              setSucMessage(`Success!!! ${data.name} with ${data.number} modified`)
+              setTimeout(()=>{
+                setSucMessage(null)
+              },4000)
+              setPersons(persons.map((p)=>{
+                if(p.id===data.id){
+                  return data
+                }
+                else{
+                  return p
+                }
+              }))
+            }).catch((err)=>{
+              console.log(err);
+              setErrMessage(`Information about ${newPerson.name} already removed from server`);
+              setTimeout(()=>{
+                setErrMessage(null)
+              },5000)
 
-    //         })
-    //     }
-    //     f=1;
-    //     break;
-    //   }
-    // }
+            })
+        }
+        f=1;
+        break;
+      }
+    }
 
     if(f==0){
       create(newPerson).then((data)=>{
@@ -74,12 +74,17 @@ const App = () => {
               },4000)
         const addedPerson=data;
         setPersons(persons.concat(addedPerson))
-      }).catch((err)=>{
-        console.log(err);
+      }).catch((error)=>{
+        console.log(error);
+        setErrMessage(error.error)
+        setTimeout(()=>{
+          setErrMessage(null)
+        },4000)
       })
-      setNewName('')
-      setNewNumber('') 
+      
     }
+    setNewName('')
+      setNewNumber('') 
     
     
   }

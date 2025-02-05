@@ -11,7 +11,9 @@ const getNumbers=()=>{
 
 const create=(newPerson)=>{
     const req=axios.post(baseUrl,newPerson)
-    return req.then((res)=>res.data)
+    return req.then((res)=>res.data).catch(err=>{
+        throw err.response.data;
+    })
 }
 
 
